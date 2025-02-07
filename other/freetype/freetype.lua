@@ -8,7 +8,7 @@ FreeType = {
 			option.use_winlib = 0
 			option.lib_path = nil
 			
-			if ExecuteSilent("freetype-config") > 0 and ExecuteSilent("freetype-config --cflags") == 0 then
+			if ExecuteSilent("pkg-config") > 0 and ExecuteSilent("pkg-config freetype2 --cflags") == 0 then
 				option.value = true
 				option.use_ftconfig = true
 			end
@@ -27,8 +27,8 @@ FreeType = {
 			settings.cc.includes:Add(FreeType.basepath .. "/include")
 			
 			if option.use_ftconfig == true then
-				settings.cc.flags:Add("`freetype-config --cflags`")
-				settings.link.flags:Add("`freetype-config --libs`")
+				settings.cc.flags:Add("`pkg-config freetype2 --cflags`")
+				settings.link.flags:Add("`pkg-config freetype2 --libs`")
 				
 			elseif option.use_winlib > 0 then
 				if option.use_winlib == 32 then
